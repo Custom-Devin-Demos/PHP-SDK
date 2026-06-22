@@ -73,7 +73,7 @@ class MerchantClientTest extends TestCase
         $carriersToken = $this->getMerchantClient()->saveCredentials($carrierCredential);
         $this->assertNotEmpty($carriersToken);
         $this->assertJson($carriersToken);
-        $this->assertRegExp('/token/', $carriersToken);
+        $this->assertMatchesRegularExpression('/token/', $carriersToken);
     }
 
     /**
@@ -122,8 +122,8 @@ class MerchantClientTest extends TestCase
 
         $this->assertNotEmpty($rs);
         $this->assertJson($rs);
-        $this->assertRegExp('/success/', $rs);
-        $this->assertRegExp('/id_pack_notification_log/', $rs);
+        $this->assertMatchesRegularExpression('/success/', $rs);
+        $this->assertMatchesRegularExpression('/id_pack_notification_log/', $rs);
     }
 
     /**
@@ -135,7 +135,7 @@ class MerchantClientTest extends TestCase
         $packNotification = $this->getMerchantClient()->createPackNotification($packNotificationRequest);
         $this->assertNotEmpty($packNotification);
         $this->assertJson($packNotification);
-        $this->assertRegExp('/id_pack_notification/', $packNotification);
+        $this->assertMatchesRegularExpression('/id_pack_notification/', $packNotification);
     }
 
     /**

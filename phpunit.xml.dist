@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./tests/bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="./tests/bootstrap.php"
          colors="true"
-         forceCoversAnnotation="true">
+         requireCoverageMetadata="true">
 
     <php>
         <server name="FCB_CLIENT_ID" value="[YOUR_CLIENT_ID]" />
@@ -17,7 +19,7 @@
     </php>
 
     <testsuites>
-        <testsuite>
+        <testsuite name="default">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
@@ -28,12 +30,9 @@
         </exclude>
     </groups>
 
-    <filter>
-        <whitelist>
+    <source>
+        <include>
             <directory suffix=".php">src</directory>
-            <exclude>
-                <directory>src/</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+        </include>
+    </source>
 </phpunit>

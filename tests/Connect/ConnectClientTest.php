@@ -30,7 +30,7 @@ class ConnectClientTest extends TestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -80,10 +80,9 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectProductInfo($request);
 
-        $this->assertObjectHasAttribute('ConnectProductInfoResult', $response);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectProductInfoResult,
+        $this->assertTrue(property_exists($response, 'ConnectProductInfoResult'));
+        $this->assertEmpty(
+            $response->ConnectProductInfoResult->error,
             $response->ConnectProductInfoResult->errorMessage
         );
     }
@@ -107,11 +106,10 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectSkuStatus($request);
 
-        $this->assertObjectHasAttribute('ConnectSkuStatusResult', $response);
-        $this->assertObjectHasAttribute('items', $response->ConnectSkuStatusResult);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectSkuStatusResult,
+        $this->assertTrue(property_exists($response, 'ConnectSkuStatusResult'));
+        $this->assertTrue(property_exists($response->ConnectSkuStatusResult, 'items'));
+        $this->assertEmpty(
+            $response->ConnectSkuStatusResult->error,
             $response->ConnectSkuStatusResult->errorMessage
         );
     }
@@ -139,9 +137,9 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectDuty($request);
 
-        $this->assertObjectHasAttribute('ConnectDutyResult', $response);
-        $this->assertObjectHasAttribute('items', $response->ConnectDutyResult);
-        $this->assertAttributeEmpty('error', $response->ConnectDutyResult, $response->ConnectDutyResult->errorMessage);
+        $this->assertTrue(property_exists($response, 'ConnectDutyResult'));
+        $this->assertTrue(property_exists($response->ConnectDutyResult, 'items'));
+        $this->assertEmpty($response->ConnectDutyResult->error, $response->ConnectDutyResult->errorMessage);
     }
 
     /**
@@ -184,11 +182,10 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectLandedCost($request);
 
-        $this->assertObjectHasAttribute('ConnectLandedCostResult', $response);
-        $this->assertObjectHasAttribute('items', $response->ConnectLandedCostResult);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectLandedCostResult,
+        $this->assertTrue(property_exists($response, 'ConnectLandedCostResult'));
+        $this->assertTrue(property_exists($response->ConnectLandedCostResult, 'items'));
+        $this->assertEmpty(
+            $response->ConnectLandedCostResult->error,
             $response->ConnectLandedCostResult->errorMessage
         );
     }
@@ -240,10 +237,9 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectOrder($request);
 
-        $this->assertObjectHasAttribute('ConnectOrderResult', $response);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectOrderResult,
+        $this->assertTrue(property_exists($response, 'ConnectOrderResult'));
+        $this->assertEmpty(
+            $response->ConnectOrderResult->error,
             $response->ConnectOrderResult->errorMessage
         );
     }
@@ -264,10 +260,9 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectOrderRemove($request);
 
-        $this->assertObjectHasAttribute('ConnectOrderRemoveResult', $response);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectOrderRemoveResult,
+        $this->assertTrue(property_exists($response, 'ConnectOrderRemoveResult'));
+        $this->assertEmpty(
+            $response->ConnectOrderRemoveResult->error,
             $response->ConnectOrderRemoveResult->errorMessage
         );
     }
@@ -298,10 +293,9 @@ class ConnectClientTest extends TestCase
         /** @var mixed $response */
         $response = $this->connectClient->connectOrderTrackingUpdate($request);
 
-        $this->assertObjectHasAttribute('ConnectOrderTrackingUpdateResult', $response);
-        $this->assertAttributeEmpty(
-            'error',
-            $response->ConnectOrderTrackingUpdateResult,
+        $this->assertTrue(property_exists($response, 'ConnectOrderTrackingUpdateResult'));
+        $this->assertEmpty(
+            $response->ConnectOrderTrackingUpdateResult->error,
             $response->ConnectOrderTrackingUpdateResult->errorMessage
         );
     }

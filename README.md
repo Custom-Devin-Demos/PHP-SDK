@@ -10,23 +10,20 @@ or by downloading a single zip or phar file from our [latest release][latest-rel
 ```php
 {
     "require": {
-        "php": ">=5.4",
-        "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.0",
         "meng-tian/async-soap-guzzle": "^0.2.3",
         "fedexcrossborder/sdk-php": "0.1.38"
     },
     "require-dev": {
-            "phpunit/phpunit": "~4.8"
+            "phpunit/phpunit": "^10.0"
     },
     "repositories": [
         {
           "type": "vcs",
             "url": "http://r3p0:k4m1k4z3@gitlab.crossborder.fedex.com/fcb/fedexcrossborder-sdk-php.git"
         }
-    ],
-    "config": {
-        "secure-http": false
-    }
+    ]
 }
 ```
 

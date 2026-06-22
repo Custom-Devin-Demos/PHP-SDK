@@ -19,7 +19,7 @@ class GeolocationClientTest extends TestCase
      */
     protected $geolocationClient;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
