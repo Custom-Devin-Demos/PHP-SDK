@@ -3,15 +3,13 @@ namespace FedExCrossBorder\Adapter;
 
 use FedExCrossBorder\Exception\HttpException;
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
 
 class GuzzleHttpAdapter implements AdapterInterface
 {
     /**
-     * @var ClientInterface
+     * @var Client
      */
     protected $client;
 
@@ -21,14 +19,14 @@ class GuzzleHttpAdapter implements AdapterInterface
     protected $headers;
 
     /**
-     * @var Response|ResponseInterface
+     * @var Response
      */
     protected $response;
 
     /**
-     * @param ClientInterface|null $client
+     * @param Client|null $client
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(Client $client = null)
     {
         $this->client = $client ?: new Client();
     }
@@ -152,18 +150,10 @@ class GuzzleHttpAdapter implements AdapterInterface
                 $headers = $this->headers;
             }
 
-            $guzzleVersion = ClientInterface::VERSION;
-
             $options = [
                 'headers' => $headers,
+                'form_params' => $params,
             ];
-
-            if ('5' == $guzzleVersion[0])
-            {
-                $options['body'] = $params;
-            } elseif ('6' == $guzzleVersion[0]) {
-                $options['form_params'] = $params;
-            }
 
             $this->response = $this->client
                 ->post(
@@ -187,9 +177,9 @@ class GuzzleHttpAdapter implements AdapterInterface
             return;
         }
         return [
-            'reset' => (int) (string) $this->response->getHeader('RateLimit-Reset'),
-            'remaining' => (int) (string) $this->response->getHeader('RateLimit-Remaining'),
-            'limit' => (int) (string) $this->response->getHeader('RateLimit-Limit'),
+            'reset' => (int) $this->response->getHeaderLine('RateLimit-Reset'),
+            'remaining' => (int) $this->response->getHeaderLine('RateLimit-Remaining'),
+            'limit' => (int) $this->response->getHeaderLine('RateLimit-Limit'),
         ];
     }
 
