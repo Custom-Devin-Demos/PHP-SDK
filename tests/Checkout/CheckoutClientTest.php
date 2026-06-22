@@ -33,7 +33,7 @@ class CheckoutTest extends TestCase
      */
     protected $oauthClient;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -513,7 +513,7 @@ class CheckoutTest extends TestCase
             ->getAvailableShippingMethods($checkout->getCheckoutId());
 
         $this->assertGreaterThan(0, count($availableShippingMethods->getAvailableShippingMethods()));
-        $this->assertInternalType('int', $availableShippingMethods->getAvailableShippingMethods()[0]->getCode());
+        $this->assertIsInt($availableShippingMethods->getAvailableShippingMethods()[0]->getCode());
         $this->assertNotEmpty($availableShippingMethods->getAvailableShippingMethods()[0]->getName());
         $this->assertNotEmpty($availableShippingMethods->getAvailableShippingMethods()[0]->getAmount());
         $this->assertNotEmpty($availableShippingMethods->getAvailableShippingMethods()[0]->getDeliveryDate());
@@ -613,8 +613,8 @@ class CheckoutTest extends TestCase
 
         $this->assertNotEmpty($response);
         $this->assertJson($response);
-        $this->assertRegExp('/'.$from.'/', $response);
-        $this->assertRegExp('/'.$to.'/', $response);
+        $this->assertMatchesRegularExpression('/'.$from.'/', $response);
+        $this->assertMatchesRegularExpression('/'.$to.'/', $response);
     }
 
     public function fullCartProvider()

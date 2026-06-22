@@ -39,9 +39,9 @@ class MonitoringClientTest extends TestCase
         $widget = $monitoringClient->getWidget($trackingParam);
 
         $this->assertNotEmpty($widget);
-        $this->assertContains('link', $widget);
-        $this->assertContains('div', $widget);
-        $this->assertContains('script', $widget);
+        $this->assertStringContainsString('link', $widget);
+        $this->assertStringContainsString('div', $widget);
+        $this->assertStringContainsString('script', $widget);
     }
 
     /**
