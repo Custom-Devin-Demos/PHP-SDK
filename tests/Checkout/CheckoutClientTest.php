@@ -14,9 +14,9 @@ use FedExCrossBorder\Exception\HttpException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CheckoutTest
+ * Class CheckoutClientTest
  */
-class CheckoutTest extends TestCase
+class CheckoutClientTest extends TestCase
 {
     /**
      * @var CheckoutClient $checkoutClientWithCredentials
