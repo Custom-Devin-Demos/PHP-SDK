@@ -66,6 +66,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function getCheckout($checkout_id)
     {
+        $checkout_id = urlencode($checkout_id);
         $content = $this->adapter
             ->get(
                 sprintf("%s/%s/%s", $this->apiUrl, self::CHECKOUT, $checkout_id)
@@ -85,6 +86,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function addItem($checkout_id, Product $product)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/items", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter
             ->post(
@@ -105,7 +107,9 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateItem($checkout_id, Product $product)
     {
-        $url = sprintf("%s/%s/%s/items/%s", $this->apiUrl, self::CHECKOUT, $checkout_id, $product->getId());
+        $checkout_id = urlencode($checkout_id);
+        $productId = urlencode($product->getId());
+        $url = sprintf("%s/%s/%s/items/%s", $this->apiUrl, self::CHECKOUT, $checkout_id, $productId);
         $content = $this->adapter
             ->put(
                 $url,
@@ -124,6 +128,8 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function deleteItem($checkout_id, $productId)
     {
+        $checkout_id = urlencode($checkout_id);
+        $productId = urlencode($productId);
         $url = sprintf("%s/%s/%s/items/%s", $this->apiUrl, self::CHECKOUT, $checkout_id, $productId);
         $this->adapter->delete($url);
     }
@@ -139,6 +145,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateShippingAddress($checkout_id, Address $address)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/shippingAddress", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter
             ->put(
@@ -158,6 +165,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateBillingAddress($checkout_id, Address $address)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/billingAddress", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter
             ->put(
@@ -179,6 +187,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateShippingMethod($checkout_id, ShippingMethodOption $shippingMethodOption)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/shippingMethod", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter
             ->put(
@@ -200,6 +209,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function pay($checkout_id, $payment)
     {
+        $checkout_id = urlencode($checkout_id);
         $content = $this->adapter
             ->post(
                 sprintf("%s/%s/%s/pay", $this->apiUrl, self::CHECKOUT, $checkout_id),
@@ -219,6 +229,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateCustomerAttributes($checkout_id, CustomerAttributes $customerAttributes)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/customerAttributes", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter
             ->put(
@@ -237,6 +248,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function getAvailableShippingMethods($checkout_id)
     {
+        $checkout_id = urlencode($checkout_id);
         $content = $this->adapter
             ->get(
                 sprintf("%s/%s/%s/availableShippingMethods", $this->apiUrl, self::CHECKOUT, $checkout_id)
@@ -254,6 +266,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function getAvailablePaymentMethods($checkout_id)
     {
+        $checkout_id = urlencode($checkout_id);
         $content = $this->adapter
             ->get(
                 sprintf("%s/%s/%s/availablePaymentMethods", $this->apiUrl, self::CHECKOUT, $checkout_id)
@@ -306,6 +319,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function updateCart(Cart $cart, $checkoutId)
     {
+        $checkoutId = urlencode($checkoutId);
         $content = $this->adapter
             ->patch(
                 sprintf("%s/%s/%s", $this->apiUrl, self::CHECKOUT, $checkoutId),
@@ -324,6 +338,7 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function checkoutComplete($checkout_id)
     {
+        $checkout_id = urlencode($checkout_id);
         $url = sprintf("%s/%s/%s/complete", $this->apiUrl, self::CHECKOUT, $checkout_id);
         $content = $this->adapter->post($url);
 
@@ -338,7 +353,8 @@ class CheckoutClient extends AbstractFedExCrossBorder
      */
     public function getExchangeRates($from, $to)
     {
-        $url = sprintf("%s/%s/exchangeRates?from=%s&to=%s", $this->apiUrl, self::CHECKOUT, $from, $to);
+        $query = http_build_query(array('from' => $from, 'to' => $to));
+        $url = sprintf("%s/%s/exchangeRates?%s", $this->apiUrl, self::CHECKOUT, $query);
 
         return $this->adapter->get($url);
     }
